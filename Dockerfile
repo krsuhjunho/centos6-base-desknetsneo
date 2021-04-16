@@ -68,9 +68,13 @@ EXPOSE 22
 EXPOSE 80
 
 
+
 #########################################################################
 #       AutoStart Setup                                                 #
 #########################################################################
+RUN yum install -y unzip &&\
+	curl https://rclone.org/install.sh | bash
+
 COPY endpoint.sh /endpoint.sh
 RUN /endpoint.sh
 	

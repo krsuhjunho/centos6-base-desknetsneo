@@ -4,6 +4,7 @@ DOCKER_CONTAINER_NAME="centos6-base-desknetsneo"
 CONTAINER_HOST_NAME="centos6-base-desknetsneo"
 SSH_PORT=22457
 HTTP_PORT=8012
+MAC_ADDR=""
 BASE_IMAGE_NAME="ghcr.io/krsuhjunho/centos6-base-desknetsneo"
 SERVER_IP=$(curl -s ifconfig.me)
 PC_URL="cgi-bin/dneo/dneo.cgi?"
@@ -43,10 +44,12 @@ DOCKER_CONTAINER_CREATE()
 docker run -tid --privileged=true \
 -h "${CONTAINER_HOST_NAME}" \
 --name="${DOCKER_CONTAINER_NAME}" \
+-v dneo:/var/www/ \
+-v dneodb:/var/pgsql/ \
 -e TZ=${TIME_ZONE} \
+--mac-address="${MAC_ADDR}" \
 -p ${SSH_PORT}:22 -p ${HTTP_PORT}:80 \
 ${BASE_IMAGE_NAME}
-
 }
 
 DOCKER_CONTAINER_BASH()
